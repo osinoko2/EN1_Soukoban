@@ -30,8 +30,13 @@ public class GameManagerScript : MonoBehaviour
     bool MoveNumber(int number, int moveFrom, int moveTo)
     {
         if (moveTo < 0 || moveTo >= map.Length)
+        { return false; }
+
+        if (map[moveTo] == 2)
         {
-            return false;
+            int velocity = moveTo - moveFrom;
+            bool success = MoveNumber(2, moveTo, moveTo + velocity);
+            if (!success){ return false; }
         }
         map[moveTo] = number;
         map[moveFrom] = 0;
@@ -42,7 +47,7 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         // ”z—ñ‚ÌÀ‘Ô‚Ìì¬‚Æ‰Šú‰»
-        map = new int[] { 0,1,0,0,0,0,0,0,0 };
+        map = new int[] { 0,1,0,2,0,2,0,0,0 };
         PrintArray();
     }
 
